@@ -1,0 +1,74 @@
+buildscript {
+    ext {
+        springBootVersion = project.springBootVersion
+        springMvcVersion = project.springMvcVersion
+        jspApiVersion = project.jspApiVersion
+        jstlApiVersion = project.jstlApiVersion
+        springSecurityVersion = project.springSecurityVersion
+        springBootStarterWebVersion = project.springBootStarterWebVersion
+        springBootStarterJdbcVersion = project.springBootStarterJdbcVersion
+        tomcatJasperVersion = project.tomcatJasperVersion
+        springBootGradlePluginVersion = project.springBootGradlePluginVersion
+        gradleDependencyManagementPluginVersion = project.gradleDependencyManagementPluginVersion
+        javaxPersistanceVersion = project.javaxPersistanceVersion
+        springBootStarterJpaVersion = project.springBootStarterJpaVersion
+        hibernateCoreVersion = project.hibernateCoreVersion
+        log4jVersion = project.log4jVersion
+        mySqlConnectorVersion = project.mySqlConnectorVersion
+        commonsDbcpVersion = project.commonsDbcpVersion
+        springBootStarterSecurity = project.springBootStarterSecurity
+        apacheCommonsLangVersion = project.apacheCommonsLangVersion
+        googleGsonVersion = project.googleGsonVersion
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootGradlePluginVersion"
+        classpath "io.spring.gradle:dependency-management-plugin:$gradleDependencyManagementPluginVersion"
+    }
+}
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "spring-boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "war"
+
+war {
+    baseName = "gs-serving-web-content"
+    version =  "0.1.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-devtools"
+    testCompile "junit:junit"
+    compile "org.springframework:spring-webmvc:$springMvcVersion"
+    compile "javax.servlet.jsp:jsp-api:$jspApiVersion"
+    compile "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:$jstlApiVersion"
+
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootStarterWebVersion"
+    compile "org.springframework.boot:spring-boot-starter-jdbc:$springBootStarterJdbcVersion"
+    compile "org.springframework.boot:spring-boot-starter-security"
+
+    compile "org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatJasperVersion"
+
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:$javaxPersistanceVersion"
+
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootStarterJpaVersion"
+    compile "org.hibernate:hibernate-core:$hibernateCoreVersion"
+    compile "log4j:log4j:$log4jVersion"
+    compile "mysql:mysql-connector-java:$mySqlConnectorVersion"
+    compile "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
+    compile "org.apache.commons:commons-lang3:$apacheCommonsLangVersion"
+    compile "com.google.code.gson:gson:$googleGsonVersion"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.3"
+}
