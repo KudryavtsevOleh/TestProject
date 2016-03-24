@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
 import javax.servlet.Filter;
@@ -50,6 +51,11 @@ public class ApplicationStart {
     @Bean
     public Filter customAuthenticationFilter() {
         return new CustomAuthenticationFilter();
+    }
+
+    @Bean
+    public AuthenticationProvider customAuthenticationProvider() {
+        return new CustomAuthenticationProvider();
     }
 
 }
