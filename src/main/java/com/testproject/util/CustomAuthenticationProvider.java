@@ -26,7 +26,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (null == user) {
             throw new UnknownUserException("Could not find user with username: " + username + " and password: " + password);
         }
-        return new UserAuthenticationToken(user, password);
+        return token;
     }
 
     @Override

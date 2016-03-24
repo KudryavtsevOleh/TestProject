@@ -17,6 +17,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "authority_id")
     private Role authority;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;

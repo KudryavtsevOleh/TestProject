@@ -4,10 +4,11 @@ function TodosContainer() {
 
     var self = this;
 
-    var SUCCESS_URL = "/user/todos";
+    var ADD_NEW_TODO_URL = "/user/addTodo";
 
     self.init = function() {
         save();
+        addTodoClick();
     };
 
     function save() {
@@ -16,24 +17,40 @@ function TodosContainer() {
         });
     }
 
+    function addTodoClick() {
+        $(".addTodo_js").click(function() {
+            $(".addTodoContainer_js").show();
+        });
+    }
+
     function saveTodo() {
         var task = $(".task_js").val();
-        var priority = $(".priority option:selected");
+        var priority = $(".priority_js option:selected").val();
 
-        //TODO: validation
+        if (!task.trim() || !Validation.validateString(task)) {
+            $(".error_js").show();
+            return;
+        }
+
+        var params = {
+            task: task,
+            priority: priority
+        };
 
         $.ajax({
-            url: "/user/login",
+            url: ADD_NEW_TODO_URL,
+            type: "POST",
+            data: params,
             headers: {
                 "X-Login": localStorage.getItem("username"),
                 "X-Password": localStorage.getItem("password")
             },
             success: function(response) {
-                if (response == "success") {
-                    window.location.href = SUCCESS_URL;
-                } else {
-
-                }
+                console.log(response);
+                var newTodoItem = $(".todoItem_js:first").clone().html(response.task + " " + response.taskPriority + " " + response.status);
+                $(".todoItem_js:last").append(newTodoItem);
+                $(".emptyTodos_js").hide();
+                $(".addTodoContainer_js").hide();
             },
             error: function(xhr, textStatus, errorThrown){
                 $(".error_js").show();

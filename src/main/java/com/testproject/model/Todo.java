@@ -6,10 +6,16 @@ import javax.persistence.*;
 @Table(name = "todos")
 public class Todo {
 
-    private enum Priority {
-        HIGH,
-        MEDIUM,
-        LOW
+    public enum Priority {
+        HIGH (1),
+        MEDIUM(2),
+        LOW(3);
+
+        Integer priority;
+
+        Priority(Integer priority) {
+            this.priority = priority;
+        }
     }
 
     @Id

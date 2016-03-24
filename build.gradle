@@ -19,6 +19,7 @@ buildscript {
         springBootStarterSecurity = project.springBootStarterSecurity
         apacheCommonsLangVersion = project.apacheCommonsLangVersion
         googleGsonVersion = project.googleGsonVersion
+        jstlVersion = project.jstlVersion
     }
     repositories {
         mavenCentral()
@@ -67,6 +68,7 @@ dependencies {
     compile "commons-dbcp:commons-dbcp:$commonsDbcpVersion"
     compile "org.apache.commons:commons-lang3:$apacheCommonsLangVersion"
     compile "com.google.code.gson:gson:$googleGsonVersion"
+    compile "jstl:jstl:$jstlVersion"
 }
 
 task wrapper(type: Wrapper) {

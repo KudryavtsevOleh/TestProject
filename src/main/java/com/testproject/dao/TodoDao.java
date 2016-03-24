@@ -13,11 +13,17 @@ import java.util.List;
 public class TodoDao extends HibernateDao {
 
     @Transactional
+    @SuppressWarnings("unchecked")
     public List<Todo> getTodosByUserId(Integer userId) {
         Criteria criteria = getSession().createCriteria(Todo.class);
-        criteria.createAlias("us", "user");
-        criteria.add(Restrictions.eq("us.id", userId));
+        criteria.createAlias("user", "user");
+        criteria.add(Restrictions.eq("user.id", userId));
         return criteria.list();
+    }
+
+    @Transactional
+    public void save(Todo todo) {
+        getSession().save(todo);
     }
 
 }

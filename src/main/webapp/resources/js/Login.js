@@ -3,6 +3,8 @@ var Login = new LoginContainer();
 function LoginContainer() {
 
     var self = this;
+    var SUCCESS_URL = "/user/todos";
+    var LOGIN_URL = "/user/login";
 
     self.init = function() {
         loginClickAction();
@@ -21,7 +23,7 @@ function LoginContainer() {
         validateInputData(username, password);
 
         $.ajax({
-           url: "/user/login",
+           url: LOGIN_URL,
            type: "POST",
            headers: {
                 "X-Login": username,
@@ -30,14 +32,12 @@ function LoginContainer() {
             success: function(response) {
                 localStorage.setItem("username", username);
                 localStorage.setItem("password", password);
-                var responseArray = JSON.parse(response);
-                if (responseArray.length > 0) {
-                    $.each(responseArray, function (index, value) {
 
-                    });
-                } else {
-                    $(".empty-todos").show();
-                }
+                var client = new XMLHttpRequest();
+                client.open("GET", SUCCESS_URL);
+                client.setRequestHeader("X-Login", username);
+                client.setRequestHeader("X-Password", password);
+                client.send();
             },
             error: function(xhr, textStatus, errorThrown){
                 $(".error_js").show();
