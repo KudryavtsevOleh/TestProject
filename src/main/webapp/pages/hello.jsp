@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>Todos</title>
     <%@include file="headers.jsp"%>
-    <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/todo.css">
-    <script src="/resources/js/Login.js"></script>
-    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
+    <script>
+        Autologin.autologin();
+    </script>
 </head>
 <body>
-<div class="container">
+<div class="container loginContainer_js">
     <div class="row vertical-offset-100">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
@@ -38,9 +38,12 @@
     </div>
 </div>
 <div class="errorDialog_js" style="display: none;">Internal server error.</div>
+
+<div class="todosContainer_js" style="display: none;"></div>
+
 <script>
     $(document).ready(function(){
-        $(document).mousemove(function(e){
+        $(document).mousemove(function(e) {
             TweenLite.to($('body'),
                     .5,
                     { css:

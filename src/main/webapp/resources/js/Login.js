@@ -4,7 +4,6 @@ function LoginContainer() {
 
     var self = this;
     var SUCCESS_URL = "/user/todos";
-    var LOGIN_URL = "/user/login";
 
     self.init = function() {
         loginClickAction();
@@ -37,14 +36,14 @@ function LoginContainer() {
     }
 
     function login() {
-        var username = $(".username_js").val();
-        var password = $(".password_js").val();
+        var usernameContext = $(".username_js");
+        var passwordContext = $(".password_js");
 
         var usernameErrorElement = $(".invalidUsername_js");
         var passwordErrorElement = $(".invalidPassword_js");
 
         var usernameFieldObj = {
-          fieldValue: username,
+          fieldValue: usernameContext.val(),
           errorElement: usernameErrorElement,
           errorMessages: {
               emptyField: Messages.EMPTY_USERNAME,
@@ -54,7 +53,7 @@ function LoginContainer() {
         };
 
         var passwordFieldObj = {
-          fieldValue: password,
+          fieldValue: passwordContext.val(),
           errorElement: passwordErrorElement,
           errorMessages: {
               emptyField: Messages.EMPTY_PASSWORD,
@@ -66,27 +65,45 @@ function LoginContainer() {
         var isValid = Validation.validateField(usernameFieldObj) && Validation.validateField(passwordFieldObj);
         if (!isValid) return;
 
+        self.getTodosAjax(usernameContext.val(), passwordContext.val());
+
+    }
+
+    self.getTodosAjax = function(u, p) {
         $.ajax({
-           url: LOGIN_URL,
-           type: "POST",
-           headers: {
-                "X-Login": username,
-                "X-Password": password
+            url: SUCCESS_URL,
+            type: "GET",
+            headers: {
+                "X-Login": u,
+                "X-Password": p
             },
             success: function(response) {
-                localStorage.setItem("username", username);
-                localStorage.setItem("password", password);
-                var client = new XMLHttpRequest();
-                client.open("GET", SUCCESS_URL);
-                client.setRequestHeader("X-Login", username);
-                client.setRequestHeader("X-Password", password);
-                client.send();
+                setDataToLocalStorage(u, p);
+                showResponseData(response);
+                clearInputData(u, p);
             },
             error: function(xhr, textStatus, errorThrown){
                 var dialogContext = $(".errorDialog_js");
                 Dialog.createDialog(dialogContext);
             }
         });
+    };
+
+    function clearInputData(u, p) {
+        $(".username_js").val("");
+        $(".password_js").val("");
+    }
+
+    function setDataToLocalStorage(u, p) {
+        localStorage.setItem("username", u);
+        localStorage.setItem("password", p);
+    }
+
+    function showResponseData(response) {
+        var context = $(".todosContainer_js");
+        context.html(response);
+        context.show();
+        $(".loginContainer_js").hide();
     }
 
 }

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-xs-6">
 <div class="well" style="max-height: 300px;overflow: auto; cursor: pointer;" title="Click to set todo done">
   <ul class="list-group checked-list-box">

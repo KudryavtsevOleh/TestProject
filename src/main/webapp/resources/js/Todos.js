@@ -10,8 +10,24 @@ function TodosContainer() {
     self.init = function() {
         save();
         setDoneTodo();
-        hideErrorsMessages()
+        hideErrorsMessages();
+        logoutClick();
     };
+
+    function logoutClick() {
+        $(".logout_js").click(function() {
+            logout();
+        });
+    }
+
+    function logout() {
+        window.localStorage.removeItem("username");
+        window.localStorage.removeItem("password");
+        $(".todosContainer_js").hide();
+        $(".todosContainer_js").html();
+        $(".loginContainer_js").show();
+
+    }
 
     function hideErrorsMessages() {
         hideEmptyTaskError();

@@ -1,6 +1,7 @@
 package com.testproject.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -12,6 +13,9 @@ import java.io.IOException;
 
 public class CustomAuthenticationFilter extends OncePerRequestFilter {
 
+    @Autowired
+    private CustomAuthenticationProvider authenticationProvider;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String login = request.getHeader("X-Login");
@@ -22,8 +26,8 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        Authentication auth = new UserAuthenticationToken(login, password);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        Authentication token = authenticationProvider.authenticate(new UserAuthenticationToken(login, password));
+        SecurityContextHolder.getContext().setAuthentication(token);
         filterChain.doFilter(request, response);
     }
 

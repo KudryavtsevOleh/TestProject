@@ -5,7 +5,6 @@ function ValidationContainer() {
     var self = this;
 
     self.validateField = function(obj) {
-        var error = "";
         var illegalChars = /[\W_]/;
 
         if (obj.fieldValue == "") {
@@ -13,7 +12,7 @@ function ValidationContainer() {
             obj.errorElement.show();
             return false;
 
-        } else if ((obj.fieldValue.length < 6)) {
+        } else if ((obj.fieldValue.length < 4)) {
             obj.errorElement.text(obj.errorMessages.invalidSize);
             obj.errorElement.show();
             return false;

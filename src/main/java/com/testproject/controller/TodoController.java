@@ -27,12 +27,11 @@ public class TodoController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping(value = "/todos", method = RequestMethod.GET)
-    public ModelAndView loadTodos(HttpServletRequest req, HttpServletResponse resp) {
+    public ModelAndView loadTodos() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
         ModelAndView mav = new ModelAndView("todos");
-        User user = userService.getUserByUsernameAndPassword((String) auth.getPrincipal(), (String) auth.getCredentials());
         List<TodoBean> todos = todoService.getTodosByUserId(user.getId());
         mav.addObject("todos", todos);
         mav.addObject("isEmptyTodos", todos.isEmpty());
@@ -44,9 +43,9 @@ public class TodoController {
     public TodoBean addNewTodo(@RequestParam(required = true) String task,
                              @RequestParam(required = true) Integer priority) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getUserByUsernameAndPassword((String) auth.getPrincipal(), (String) auth.getCredentials());
-        TodoBean todoBean = todoService.saveTodoItem(task, priority, user);
-        return todoBean;
+        User user = (User) auth.getPrincipal();
+        TodoBean resultBean = todoService.saveTodoItem(task, priority, user);
+        return resultBean;
     }
 
     @RequestMapping(value = "/changeTodoStatus", method = RequestMethod.POST)
