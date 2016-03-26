@@ -6,16 +6,11 @@ import com.testproject.service.TodoService;
 import com.testproject.service.UserService;
 import com.testproject.util.CustomAuthenticationFilter;
 import com.testproject.util.CustomAuthenticationProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
 import javax.servlet.Filter;
 
@@ -54,7 +49,7 @@ public class ApplicationStart {
     }
 
     @Bean
-    public AuthenticationProvider customAuthenticationProvider() {
+    public CustomAuthenticationProvider customAuthenticationProvider() {
         return new CustomAuthenticationProvider();
     }
 

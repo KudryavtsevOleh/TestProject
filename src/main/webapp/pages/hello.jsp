@@ -4,29 +4,53 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Todos</title>
-    <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css">
+    <%@include file="headers.jsp"%>
+    <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/todo.css">
     <script src="/resources/js/Login.js"></script>
-    <script src="/resources/js/Validation.js"></script>
-    <script src="/resources/js/jquery-1.8.2.min.js"></script>
+    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
 </head>
 <body>
-    <div class="username-info">
-        <label>Username</label>
-        <input class="username_js" type="text">
-        <span class="has-error emptyField_js" style="display: none;">Empty username</span>
-        <span class="has-error invalidUsername_js" style="display: none;">Invalid username</span>
+<div class="container">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please sign in</h3>
+                </div>
+                <div class="panel-body">
+                    <form accept-charset="UTF-8" role="form">
+                        <fieldset>
+                            <div class="alert-danger invalidUsername_js" style="display: none;"></div>
+                            <div class="form-group">
+                                <input class="form-control username_js" placeholder="Username" name="email" type="text"><br>
+                            </div>
+                            <div class="alert-danger invalidPassword_js" style="display: none;"></div>
+                            <div class="form-group">
+                                <input class="form-control password_js" placeholder="Password" name="password" type="password" value=""><br>
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block submit_js" type="button" value="Login">
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="password-info">
-        <label>Password</label>
-        <input class="password_js" type="text">
-        <span class="has-error emptyPassword_js" style="display: none;">Empty password</span>
-        <span class="has-error invalidPassword_js" style="display: none;">Invalid password</span>
-    </div>
-    <div class="submit-action">
-        <input class="submit_js" type="button" value="Submit">
-    </div>
-    <script>
-        Login.init();
-    </script>
+</div>
+<div class="errorDialog_js" style="display: none;">Internal server error.</div>
+<script>
+    $(document).ready(function(){
+        $(document).mousemove(function(e){
+            TweenLite.to($('body'),
+                    .5,
+                    { css:
+                    {
+                        backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
+                    }
+                    });
+        });
+    });
+    Login.init();
+</script>
 </body>
 </html>

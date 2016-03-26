@@ -1587,6 +1587,7 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  text-align: center;
 }
 @media (min-width: 768px) {
   .container {
@@ -1641,7 +1642,7 @@ pre code {
   width: 58.33333333%;
 }
 .col-xs-6 {
-  width: 50%;
+  width: 70%;
 }
 .col-xs-5 {
   width: 41.66666667%;
@@ -5842,7 +5843,7 @@ button.list-group-item-danger.active:focus {
   border-radius: 3px;
 }
 .close {
-  float: right;
+  /*float: right;*/
   font-size: 21px;
   font-weight: bold;
   line-height: 1;
@@ -6758,3 +6759,5 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+

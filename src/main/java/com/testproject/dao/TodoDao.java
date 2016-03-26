@@ -22,8 +22,18 @@ public class TodoDao extends HibernateDao {
     }
 
     @Transactional
-    public void save(Todo todo) {
-        getSession().save(todo);
+    public void deleteTodo(Todo todo) {
+        getSession().delete(todo);
+    }
+
+    @Transactional
+    public Integer saveWithGettingId(Todo todo) {
+        return (Integer) getSession().save(todo);
+    }
+
+    @Transactional
+    public Todo getTodoById(Integer id) {
+        return (Todo) getSession().get(Todo.class, id);
     }
 
 }

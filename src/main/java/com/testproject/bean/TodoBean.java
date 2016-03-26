@@ -4,14 +4,23 @@ import com.testproject.model.Todo;
 
 public class TodoBean {
 
+    private Integer id;
     private String task;
     private Todo.Priority taskPriority;
     private Boolean status;
 
-    public TodoBean(String task, Todo.Priority taskPriority, Boolean status) {
+    public TodoBean(Integer id, String task, Todo.Priority taskPriority, Boolean status) {
+        this.id = id;
         this.task = task;
         this.taskPriority = taskPriority;
         this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTask() {

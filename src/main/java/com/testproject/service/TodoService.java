@@ -26,6 +26,7 @@ public class TodoService {
         List<TodoBean> result = new ArrayList<>();
         List<Todo> todos = todoDao.getTodosByUserId(userId);
         result.addAll(todos.stream().map(todo -> new TodoBean(
+                todo.getId(),
                 todo.getTask(),
                 todo.getPriority(),
                 todo.getDone()
@@ -34,21 +35,26 @@ public class TodoService {
     }
 
     public TodoBean saveTodoItem(String task, Integer priority, User user) {
-        Todo todoItem = createTodoEntity(task, priority, user);
-        todoDao.save(todoItem);
+        Todo todo = new Todo();
+        fillTodoInfo(todo, task, priority, user);
+        Integer savedTodoId = todoDao.saveWithGettingId(todo);
         return new TodoBean(
-            task,
-            Todo.Priority.values()[priority],
-            DEFAULT_TODO_STATUS
+                savedTodoId,
+                task,
+                Todo.Priority.values()[priority],
+                DEFAULT_TODO_STATUS
         );
     }
 
-    private Todo createTodoEntity(String task, Integer priority, User user) {
-        Todo todo = new Todo();
+    private void fillTodoInfo(Todo todo, String task, Integer priority, User user) {
         todo.setTask(task);
         todo.setPriority(Todo.Priority.values()[priority]);
         todo.setUser(user);
-        return todo;
+    }
+
+    public void changeTodoStatus(Integer todoId) {
+        Todo todo = todoDao.getTodoById(todoId);
+        todoDao.deleteTodo(todo);
     }
 
 }

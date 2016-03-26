@@ -11,7 +11,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login() {
+    public String login()  {
         return "success";
     }
 

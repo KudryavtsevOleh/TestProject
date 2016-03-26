@@ -4,14 +4,27 @@ function ValidationContainer() {
 
     var self = this;
 
-    self.validatePassword = function(password) {
-        var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-        return re.test(password);
-    };
+    self.validateField = function(obj) {
+        var error = "";
+        var illegalChars = /[\W_]/;
 
-    self.validateString = function(text) {
-        var re = /[a-z], [A-Z]/;
-        return !re.test(text);
-    }
+        if (obj.fieldValue == "") {
+            obj.errorElement.text(obj.errorMessages.emptyField);
+            obj.errorElement.show();
+            return false;
+
+        } else if ((obj.fieldValue.length < 6)) {
+            obj.errorElement.text(obj.errorMessages.invalidSize);
+            obj.errorElement.show();
+            return false;
+
+        } else if (illegalChars.test(obj.fieldValue)) {
+            obj.errorElement.text(obj.errorMessages.invalidContent);
+            obj.errorElement.show();
+            return false;
+
+        }
+        return true;
+    };
 
 }

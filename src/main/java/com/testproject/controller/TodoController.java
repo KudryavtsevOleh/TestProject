@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -25,8 +27,9 @@ public class TodoController {
     @Autowired
     private UserService userService;
 
+
     @RequestMapping(value = "/todos", method = RequestMethod.GET)
-    public ModelAndView loadTodos() {
+    public ModelAndView loadTodos(HttpServletRequest req, HttpServletResponse resp) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView mav = new ModelAndView("todos");
         User user = userService.getUserByUsernameAndPassword((String) auth.getPrincipal(), (String) auth.getCredentials());
@@ -44,6 +47,13 @@ public class TodoController {
         User user = userService.getUserByUsernameAndPassword((String) auth.getPrincipal(), (String) auth.getCredentials());
         TodoBean todoBean = todoService.saveTodoItem(task, priority, user);
         return todoBean;
+    }
+
+    @RequestMapping(value = "/changeTodoStatus", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeTodoStatus(@RequestParam(required = true) Integer todoId) {
+        todoService.changeTodoStatus(todoId);
+        return "success";
     }
 
 }

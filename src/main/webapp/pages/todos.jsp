@@ -5,25 +5,22 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Todos page</title>
-    <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css">
+    <%@include file="headers.jsp"%>
     <script src="/resources/js/Todos.js"></script>
-    <script src="/resources/js/Validation.js"></script>
-    <script src="/resources/js/jquery-1.8.2.min.js"></script>
 </head>
 <body>
-    <div class="add-todo-container">
-        <div class="add-todo-item">
-            <button class="addTodo_js">Add new Todo</button>
-        </div>
-        <div class="addTodoContainer_js" style="display: none;">
+    <div class="container" id="main">
+        <h1>Ultimate To-Do List</h1>
+        <div class="addTodoContainer_js">
             <%@include file="addTodo.jsp"%>
         </div>
     </div>
-    <div class="todos-container">
+    <div class="todos-container" style="margin-left: 280px;">
         <%@include file="todosContainer.jsp"%>
     </div>
     <script>
         Todos.init();
     </script>
+    <div class="errorDialog_js" style="display: none;">Internal server error.</div>
 </body>
 </html>
