@@ -15,6 +15,8 @@ public class Bootstrap {
     private UserDao userDao;
 
     private final String ROLE_USER = "ROLE_USER";
+    private final String USER_NAME = "user";
+    private final String USER_PASSWORD = "123456";
 
     @PostConstruct
     public void init() {
@@ -23,8 +25,8 @@ public class Bootstrap {
         if (CollectionUtils.isEmpty(existingUsers)) {
             User user = new User();
             Role userRole;
-            user.setUsername("oleg");
-            user.setPassword("123456");
+            user.setUsername(USER_NAME);
+            user.setPassword(USER_PASSWORD);
             if (CollectionUtils.isEmpty(existingRoles)) {
                 userRole = new Role();
                 userRole.setName("ROLE_USER");
