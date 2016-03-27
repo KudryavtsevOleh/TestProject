@@ -18,12 +18,13 @@ public class TodoDao extends HibernateDao {
         Criteria criteria = getSession().createCriteria(Todo.class);
         criteria.createAlias("user", "user");
         criteria.add(Restrictions.eq("user.id", userId));
+        criteria.add(Restrictions.eq("done", false));
         return criteria.list();
     }
 
     @Transactional
-    public void deleteTodo(Todo todo) {
-        getSession().delete(todo);
+    public void updateTodo(Todo todo) {
+        getSession().update(todo);
     }
 
     @Transactional

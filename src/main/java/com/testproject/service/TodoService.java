@@ -54,7 +54,8 @@ public class TodoService {
 
     public void changeTodoStatus(Integer todoId) {
         Todo todo = todoDao.getTodoById(todoId);
-        todoDao.deleteTodo(todo);
+        todo.setDone(true);
+        todoDao.updateTodo(todo);
     }
 
 }
