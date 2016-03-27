@@ -5,7 +5,7 @@ function TodosContainer() {
     var self = this;
 
     var ADD_NEW_TODO_URL = "/user/addTodo";
-    var CHANGE_TODO_STATUS_URL = "/user/changeTodoStatus";
+    var SET_DONE_TODO = "/user/changeTodoStatus";
 
     self.init = function() {
         save();
@@ -23,10 +23,9 @@ function TodosContainer() {
     function logout() {
         window.localStorage.removeItem("username");
         window.localStorage.removeItem("password");
-        $(".todosContainer_js").hide();
-        $(".todosContainer_js").html();
+        $(".todosContainer_js").hide().html();
+        //$(".todosContainer_js").html();
         $(".loginContainer_js").show();
-
     }
 
     function hideErrorsMessages() {
@@ -66,7 +65,7 @@ function TodosContainer() {
         };
 
         $.ajax({
-            url: CHANGE_TODO_STATUS_URL,
+            url: SET_DONE_TODO,
             type: "POST",
             data: params,
             headers: {
@@ -78,7 +77,7 @@ function TodosContainer() {
             },
             error: function(xhr, textStatus, errorThrown){
                 var dialogContext = $(".errorDialog_js");
-                Dialog.createDialog(dialogContext);
+                Dialog.createDialog(dialogContext, xhr);
             }
         });
     }
@@ -100,15 +99,8 @@ function TodosContainer() {
             }
         };
 
-        var isValid = Validation.validateField(todoFieldObj);
+        var isValid = Validation.validateField(todoFieldObj) && Validation.validatePriority(priority, priorityErrorElement);
         if (!isValid) return;
-
-        if (priority == "") {
-            priorityErrorElement.text(Messages.EMPTY_PRIORITY_SELECT);
-            priorityErrorElement.show();
-            return;
-        }
-
 
         var params = {
             task: todo,
@@ -128,7 +120,7 @@ function TodosContainer() {
             },
             error: function(xhr, textStatus, errorThrown){
                 var dialogContext = $(".errorDialog_js");
-                Dialog.createDialog(dialogContext);
+                Dialog.createDialog(dialogContext, xhr);
             }
         });
     }
@@ -136,7 +128,6 @@ function TodosContainer() {
     function createNewTodo(response) {
         var newTodoItem = $(".todoItem_js:first").clone();
         newTodoItem.attr("id", response.id);
-        newTodoItem.data(response.status);
         newTodoItem.click(function () {
             setDoneTodo();
         });
@@ -145,6 +136,10 @@ function TodosContainer() {
         $(".todoItem_js:last").after(newTodoItem);
         newTodoItem.show();
         $(".emptyTodos_js").hide();
+        clearTodoData();
+    }
+
+    function clearTodoData() {
         $(".task_js").val("");
         $(".priority_js").val("");
     }

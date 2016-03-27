@@ -80,16 +80,16 @@ function LoginContainer() {
             success: function(response) {
                 setDataToLocalStorage(u, p);
                 showResponseData(response);
-                clearInputData(u, p);
+                clearInputData();
             },
             error: function(xhr, textStatus, errorThrown){
                 var dialogContext = $(".errorDialog_js");
-                Dialog.createDialog(dialogContext);
+                Dialog.createDialog(dialogContext, xhr);
             }
         });
     };
 
-    function clearInputData(u, p) {
+    function clearInputData() {
         $(".username_js").val("");
         $(".password_js").val("");
     }

@@ -26,4 +26,14 @@ function ValidationContainer() {
         return true;
     };
 
+    self.validatePriority = function(p, e) {
+        if (p == "") {
+            e.text(Messages.EMPTY_PRIORITY_SELECT);
+            e.show();
+            return false;
+        }
+        return true;
+    }
+
+
 }

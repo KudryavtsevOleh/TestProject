@@ -11,49 +11,26 @@
     </script>
 </head>
 <body>
-<div class="container loginContainer_js">
-    <div class="row vertical-offset-100">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please sign in</h3>
-                </div>
-                <div class="panel-body">
-                    <form accept-charset="UTF-8" role="form">
-                        <fieldset>
-                            <div class="alert-danger invalidUsername_js" style="display: none;"></div>
-                            <div class="form-group">
-                                <input class="form-control username_js" placeholder="Username" name="email" type="text"><br>
-                            </div>
-                            <div class="alert-danger invalidPassword_js" style="display: none;"></div>
-                            <div class="form-group">
-                                <input class="form-control password_js" placeholder="Password" name="password" type="password" value=""><br>
-                            </div>
-                            <input class="btn btn-lg btn-success btn-block submit_js" type="button" value="Login">
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
+
+    <div class="container loginContainer_js">
+        <%@include file="loginContainer.jsp"%>
     </div>
-</div>
-<div class="errorDialog_js" style="display: none;">Internal server error.</div>
 
-<div class="todosContainer_js" style="display: none;"></div>
-
-<script>
-    $(document).ready(function(){
-        $(document).mousemove(function(e) {
-            TweenLite.to($('body'),
-                    .5,
-                    { css:
-                    {
-                        backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
-                    }
-                    });
+    <script>
+        $(document).ready(function(){
+            $(document).mousemove(function(e) {
+                TweenLite.to($('body'),
+                        .5,
+                        { css:
+                        {
+                            backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
+                        }
+                        });
+            });
         });
-    });
-    Login.init();
-</script>
+        Login.init();
+    </script>
+    <div class="errorDialog_js" style="display: none;"></div>
+    <div class="todosContainer_js" style="display: none;"></div>
 </body>
 </html>

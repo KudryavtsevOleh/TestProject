@@ -23,7 +23,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = (String) token.getCredentials();
         User user = userService.getUserByUsernameAndPassword(username, password);
         if (null == user) {
-            throw new UnknownUserException("Could not find user with username: " + username + " and password: " + password);
+            throw new UnknownUserException("Invalid username or password");
         }
         Map<String, String> userCredentials = setUserCredentials(token);
         return new UserAuthenticationToken(user, userCredentials);

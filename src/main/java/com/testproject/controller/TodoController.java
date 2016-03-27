@@ -24,9 +24,6 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @Autowired
-    private UserService userService;
-
     @RequestMapping(value = "/todos", method = RequestMethod.GET)
     public ModelAndView loadTodos() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
