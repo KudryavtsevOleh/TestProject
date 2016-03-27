@@ -29,7 +29,7 @@ public class Bootstrap {
             user.setPassword(USER_PASSWORD);
             if (CollectionUtils.isEmpty(existingRoles)) {
                 userRole = new Role();
-                userRole.setName("ROLE_USER");
+                userRole.setName(ROLE_USER);
                 userDao.saveRole(userRole);
             } else {
                 userRole = userDao.getRoleByName(ROLE_USER);
