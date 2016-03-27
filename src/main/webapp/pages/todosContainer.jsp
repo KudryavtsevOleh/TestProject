@@ -20,7 +20,7 @@
     </c:forEach>
   </ul>
   <c:if test="${isEmptyTodos}">
-    <div class="empty-todos">
+    <div class="empty-todos emptyTodos_js">
       <span class="alert-danger">You haven't any todo</span>
     </div>
   </c:if>

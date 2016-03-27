@@ -5,7 +5,7 @@ function ValidationContainer() {
     var self = this;
 
     self.validateField = function(obj) {
-        var illegalChars = /[\W_]/;
+        var illegalChars = /^(\w+\s?)*\s*$/;
 
         if (obj.fieldValue == "") {
             obj.errorElement.text(obj.errorMessages.emptyField);
@@ -17,7 +17,7 @@ function ValidationContainer() {
             obj.errorElement.show();
             return false;
 
-        } else if (illegalChars.test(obj.fieldValue)) {
+        } else if (!illegalChars.test(obj.fieldValue)) {
             obj.errorElement.text(obj.errorMessages.invalidContent);
             obj.errorElement.show();
             return false;

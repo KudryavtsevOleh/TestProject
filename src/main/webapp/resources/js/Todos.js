@@ -23,8 +23,7 @@ function TodosContainer() {
     function logout() {
         window.localStorage.removeItem("username");
         window.localStorage.removeItem("password");
-        $(".todosContainer_js").hide().html();
-        //$(".todosContainer_js").html();
+        $(".todosContainer_js").hide().text("");
         $(".loginContainer_js").show();
     }
 
@@ -72,8 +71,11 @@ function TodosContainer() {
                 "X-Login": localStorage.getItem("username"),
                 "X-Password": localStorage.getItem("password")
             },
-            success: function() {
+            success: function(response) {
                 $(context).hide();
+                if (response == 0) {
+                    $(".emptyTodos_js").show();
+                }
             },
             error: function(xhr, textStatus, errorThrown){
                 var dialogContext = $(".errorDialog_js");

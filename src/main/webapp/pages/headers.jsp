@@ -6,7 +6,7 @@
 <script src="/resources/js/jquery-1.12.2.min.js"></script>
 <script src="/resources/js/Todos.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/todo.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/jquery-ui.css">
 <script src="/resources/js/Login.js"></script>
 <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>

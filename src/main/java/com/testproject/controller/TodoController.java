@@ -1,5 +1,6 @@
 package com.testproject.controller;
 
+import com.google.gson.Gson;
 import com.testproject.bean.TodoBean;
 import com.testproject.model.User;
 import com.testproject.service.TodoService;
@@ -47,9 +48,12 @@ public class TodoController {
 
     @RequestMapping(value = "/changeTodoStatus", method = RequestMethod.POST)
     @ResponseBody
-    public String changeTodoStatus(@RequestParam(required = true) Integer todoId) {
+    public Integer changeTodoStatus(@RequestParam(required = true) Integer todoId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
         todoService.changeTodoStatus(todoId);
-        return "success";
+        Integer enableTodosCount = todoService.getTodosByUserId(user.getId()).size();
+        return enableTodosCount;
     }
 
 }

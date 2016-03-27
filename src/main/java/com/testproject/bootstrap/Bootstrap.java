@@ -1,29 +1,40 @@
 package com.testproject.bootstrap;
 
-
+import com.testproject.dao.UserDao;
 import com.testproject.model.Role;
 import com.testproject.model.User;
-import com.testproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
+import java.util.List;
 
 public class Bootstrap {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
+
+    private final String ROLE_USER = "ROLE_USER";
 
     @PostConstruct
     public void init() {
-        Role role = new Role();
-        role.setName("ROLE_USER");
-//        userService.saveRole(role);
-
-        User user = new User();
-        user.setUsername("oleg");
-        user.setPassword("123456");
-        user.setAuthorities(role);
-        userService.saveUser(user);
+        List<Role> existingRoles = userDao.getAllRoles();
+        List<User> existingUsers = userDao.getAllUsers();
+        if (CollectionUtils.isEmpty(existingUsers)) {
+            User user = new User();
+            Role userRole;
+            user.setUsername("oleg");
+            user.setPassword("123456");
+            if (CollectionUtils.isEmpty(existingRoles)) {
+                userRole = new Role();
+                userRole.setName("ROLE_USER");
+                userDao.saveRole(userRole);
+            } else {
+                userRole = userDao.getRoleByName(ROLE_USER);
+            }
+            user.setAuthorities(userRole);
+            userDao.saveUser(user);
+        }
     }
 
 }

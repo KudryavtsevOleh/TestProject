@@ -16,12 +16,4 @@ public class UserService {
         return userDao.getIdByUsernameAndPassword(username, pasword);
     }
 
-    public void saveUser(User user) {
-        userDao.saveUser(user);
-    }
-
-    public void saveRole(Role role) {
-        userDao.saveRole(role);
-    }
-
 }

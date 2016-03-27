@@ -1,5 +1,6 @@
 package com.testproject.configuration;
 
+import com.testproject.bootstrap.Bootstrap;
 import com.testproject.dao.TodoDao;
 import com.testproject.dao.UserDao;
 import com.testproject.service.TodoService;
@@ -51,6 +52,11 @@ public class ApplicationStart {
     @Bean
     public CustomAuthenticationProvider customAuthenticationProvider() {
         return new CustomAuthenticationProvider();
+    }
+
+    @Bean
+    public Bootstrap bootstrap() {
+        return new Bootstrap();
     }
 
 }
