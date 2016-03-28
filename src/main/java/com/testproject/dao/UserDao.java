@@ -14,7 +14,7 @@ public class UserDao extends HibernateDao {
 
     @Transactional
     @SuppressWarnings("unchecked")
-    public User getIdByUsernameAndPassword(String username, String password) {
+    public User getUserByUsernameAndPassword(String username, String password) {
         Criteria criteria = getSession().createCriteria(User.class);
         criteria.add(Restrictions.eq("username", username))
                 .add(Restrictions.eq("password", password));

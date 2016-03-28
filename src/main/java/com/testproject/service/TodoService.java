@@ -2,11 +2,9 @@ package com.testproject.service;
 
 import com.testproject.bean.TodoBean;
 import com.testproject.dao.TodoDao;
-import com.testproject.dao.UserDao;
 import com.testproject.model.Todo;
 import com.testproject.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

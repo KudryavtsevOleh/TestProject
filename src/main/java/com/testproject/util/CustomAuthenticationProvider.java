@@ -1,7 +1,7 @@
 package com.testproject.util;
 
+import com.testproject.dao.UserDao;
 import com.testproject.model.User;
-import com.testproject.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -14,14 +14,14 @@ import java.util.Map;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UserAuthenticationToken token = (UserAuthenticationToken) authentication;
         String username = token.getName();
         String password = (String) token.getCredentials();
-        User user = userService.getUserByUsernameAndPassword(username, password);
+        User user = userDao.getUserByUsernameAndPassword(username, password);
         if (null == user) {
             throw new UnknownUserException("Invalid username or password");
         }

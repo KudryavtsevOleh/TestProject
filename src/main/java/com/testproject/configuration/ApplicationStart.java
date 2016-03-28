@@ -17,7 +17,11 @@ import javax.servlet.Filter;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.testproject.controller")
-@Import({MvcConfiguration.class, SecurityConfiguration.class, RepositoryConfiguration.class})
+@Import({
+        MvcConfiguration.class,
+        RepositoryConfiguration.class,
+        SecurityConfiguration.class
+})
 public class ApplicationStart {
 
     public static void main(String[] args) throws Exception {
